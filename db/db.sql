@@ -21,3 +21,6 @@ location varchar(255) NULL,
 status varchar(10) NOT NULL,
 feedback varchar(1000) NOT NULL,
 );
+
+INSERT INTO `users`(`user_id`, `user_name`, `user_year`, `user_email`, `user_phone`, `user_role`, `user_tutor_group`) 
+VALUES ('156','Phillip Baskerville','','pbaskerville@redeemer.com.au','','teacher','');
