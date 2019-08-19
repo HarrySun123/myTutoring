@@ -19,6 +19,7 @@ mentee_year varchar(10) NULL,
 subject varchar(255) NOT NULL,
 time varchar(255) NOT NULL,
 location varchar(255) NULL,
+additional_info varchar(1000) NOT NULL,
 status varchar(10) NOT NULL,
 feedback varchar(1000) NOT NULL,
 );
@@ -32,3 +33,10 @@ VALUES ('156','Phillip Baskerville','baskerville123','','pbaskerville@redeemer.c
 
 INSERT INTO `users`(`user_id`, `user_name`, `user_password`,`user_year`, `user_email`, `user_phone`, `user_role`, `user_tutor_group`) 
 VALUES ('15166','William Lee','wiyum123','11','15166@redeemer.com.au','','mentee','WO4');
+
+
+
+
+
+
+
