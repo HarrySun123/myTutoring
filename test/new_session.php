@@ -8,6 +8,7 @@ $subject = $date = $time = $session_date = $location="";
 $location = $additional_info = "";
 $subject_err = $time_err  = "";
 $mentor_id = $_SESSION["userid"];
+$mentor_name = $_SESSION["username"];
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -20,8 +21,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["time"]))){
         $time_err = "Please enter a time.";     
     } 
-    
-
     $param_subject = $subject = trim($_POST["subject"]);
     $param_time =  $time = trim($_POST["time"]);
     $param_status = $status = "active";
@@ -33,17 +32,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     $param_location =  $location = trim($_POST["location"]);
     
-    // $param_useremail = $useremail = trim($_POST["useremail"]);
-    // $param_userrole = $userrole = trim($_POST["userrole"]);
+    
     // Check input errors before inserting in database
     if(empty($subject_err) && empty($time_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO sessions (mentor_id, subject, session_date, time, location, status) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO sessions (mentor_id, mentor_name, subject, session_date, time, location, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssss", $param_mentor_id, $param_subject, $param_session_date, $param_time, $param_location, $param_status);
+            mysqli_stmt_bind_param($stmt, "ssssss", $param_mentor_id, $param_mentor_name, $param_subject, $param_session_date, $param_time, $param_location, $param_status);
             
             // Set parameters
             $param_mentor_id = $mentor_id;
@@ -52,6 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_status= $status;
             $param_session_date= $session_date;
             $param_location= $location;
+            $param_mentor_name= $mentor_name;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -121,26 +120,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $time_err; ?></span>
             </div>
 
-            <!-- <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
-            </div>    
-            <div class="form-group">
-                <label>User year</label>
-                <input type="text" name="useryear" class="form-control" value="<?php echo $useryear; ?>">
-            </div>    
-            <div class="form-group">
-                <label>User email</label>
-                <input type="text" name="useremail" class="form-control" value="<?php echo $useremail; ?>">
-            </div>    
-            <div class="form-group">
-                <label>User role</label>
-                <input type="text" name="userrole" class="form-control" value="<?php echo $userrole; ?>">
-            </div>    
-            <div class="form-group">
-                <label>Tutor group</label>
-                <input type="text" name="usertutorgroup" class="form-control" value="<?php echo $usertutorgroup; ?>">
-            </div>     -->
+            
 
 
             <div class="form-group">

@@ -12,7 +12,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$userid = $password = "";
+$userid = $password = $userrole = "";
 $userid_err = $password_err = "";
  
 // Processing form data when form is submitted
@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($userid_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT user_id, user_name, user_password FROM users WHERE user_id = ?";
+        $sql = "SELECT user_id, user_name, user_password, user_role FROM users WHERE user_id = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if userid exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $userid, $username, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $userid, $username, $hashed_password, $userrole);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["userid"] = $userid;                            
                             $_SESSION["username"] = $username; 
-
+                            $_SESSION["userrole"] = $userrole; 
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{
