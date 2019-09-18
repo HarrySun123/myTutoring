@@ -16,7 +16,6 @@ $sql = "UPDATE sessions SET mentee_id =" . $mentee_id . " WHERE session_id =" . 
 mysqli_query($link, $sql);
 
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,15 +27,6 @@ mysqli_query($link, $sql);
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
 </head>
 <body>
     <div class="wrapper">
