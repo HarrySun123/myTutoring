@@ -93,7 +93,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Create Session  <?php echo htmlspecialchars($_SESSION["userid"] );?></h2>
+        <h2>Create Session </h2>
         <p>Please fill this form to create an session.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">

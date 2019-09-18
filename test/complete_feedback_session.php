@@ -6,7 +6,7 @@ session_start();
 
 $feedback_err  = "";
 $feedback = $sessionId ="";
-$mentor_id = $_SESSION["userid"];
+$user_name = $_SESSION["username"];
 if($_SERVER["REQUEST_METHOD"] != "POST"){
     $queries = array();
     parse_str($_SERVER['QUERY_STRING'], $queries);
@@ -16,12 +16,12 @@ if($_SERVER["REQUEST_METHOD"] != "POST"){
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+
     // Validate feedback
     if(empty(trim($_POST["feedback"]))){
         $feedback_err = "Please enter feedback.";
-    }  
-    
+    }
+
     if(empty($feedback_err)){
         $sessionId = $_SESSION["sessionId"];
         $feedback = $_POST["feedback"];
@@ -33,8 +33,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $sql = "UPDATE sessions SET mentee_feedback ='" . $feedback . "' WHERE session_id =" . $sessionId;
             mysqli_query($link, $sql);
         }
-         
-            
+
+
         // Close connection
         mysqli_close($link);
         header("location: welcome.php");
@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,9 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Feedback from  <?php echo htmlspecialchars($_SESSION["userid"] );?></h2>
+        <h2>Feedback from  <?php echo htmlspecialchars($_SESSION["username"] );?></h2>
         <p>Please fill your feedback for the session.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">   
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($subject_err)) ? 'has-error' : ''; ?>">
                 <label>Feedback</label>
                 <textarea name="feedback" rows="4" cols="50"></textarea>
@@ -80,8 +80,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-default" value="Reset">
             </div>
-          
+
         </form>
-    </div>    
+    </div>
 </body>
 </html>
